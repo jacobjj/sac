@@ -139,7 +139,7 @@ class RandomGoalAntEnv(AntEnv):
 
         next_observation = self.get_current_obs()
         info = {'goal_position': self.goal_position}
-        return Step(next_observation, reward, done, **info)
+        return Step(next_observation, float(reward), done, **info)
 
     @overrides
     def log_diagnostics(self, paths, *args, **kwargs):

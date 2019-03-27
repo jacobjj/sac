@@ -44,7 +44,7 @@ ENVIRONMENTS = {
         'cross-maze': CrossMazeAntEnv
     },
     'humanoid-gym': {
-        'default': lambda: GymEnv('Humanoid-v1')
+        'default': lambda: GymEnv('Humanoid-v2')
     },
     'humanoid-rllab': {
         'default': HumanoidEnv,

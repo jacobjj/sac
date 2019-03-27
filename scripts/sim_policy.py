@@ -31,11 +31,11 @@ def simulate_policy(args):
             policy = data['policy']
             env = data['env']
 
-        with policy.deterministic(args.deterministic):
-            while True:
-                path = rollout(env, policy,
-                               max_path_length=args.max_path_length,
-                               animated=True, speedup=args.speedup)
+        # with policy.deterministic(args.deterministic):
+        while True:
+            path = rollout(env, policy,
+                           max_path_length=args.max_path_length,
+                           animated=True, speedup=args.speedup)
 if __name__ == "__main__":
     args = parse_args()
     simulate_policy(args)

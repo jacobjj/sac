@@ -141,6 +141,8 @@ ENV_DOMAIN_PARAMS = {
     },
     'humanoid-standup-gym': { # 17 DoF
     },
+    'baxter':{ # 4 DoF
+    }
 }
 
 ENV_PARAMS = {
@@ -184,6 +186,12 @@ ENV_PARAMS = {
     'humanoid-rllab': { # 21 DOF
     },
     'humanoid-standup-gym': { # 17 DoF
+    },
+    'baxter': {
+        'resume-training':{
+            'low_level_policy_path':[
+            ]
+        }
     },
 }
 
@@ -255,6 +263,12 @@ ALGORITHM_PARAMS = {
             'n_epochs': 1e4,
         }
     },
+    'baxter': { #7 Dof
+        'scale_reward':1,
+        'base_kwargs': {
+            'n_epochs': 1e4
+        }
+    },
 }
 
 REPLAY_BUFFER_PARAMS = {
@@ -296,6 +310,9 @@ RUN_PARAMS = {
     'humanoid-rllab': { # 21 DoF
         'snapshot_gap': 4000
     },
+    'baxter': {
+        'snapshot_gap': 2000
+    },
 }
 
 
@@ -308,6 +325,7 @@ DOMAINS = [
     'humanoid-gym', # 17 DoF # gym_humanoid
     'humanoid-rllab', # 21 DoF
     'humanoid-standup-gym', # 17 DoF # gym_humanoid
+    'baxter',
 ]
 
 TASKS = {
@@ -340,6 +358,9 @@ TASKS = {
     'humanoid-standup-gym': [
         'default',
     ],
+    'baxter': [
+        'default',
+    ]
 }
 
 def parse_domain_and_task(env_name):
