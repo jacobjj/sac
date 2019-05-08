@@ -1,6 +1,7 @@
 import argparse
 
 import joblib
+import numpy as np
 import tensorflow as tf
 
 from rllab.sampler.utils import rollout
@@ -32,10 +33,18 @@ def simulate_policy(args):
             env = data['env']
 
         # with policy.deterministic(args.deterministic):
-        while True:
+        mean_reward = []
+        # while True:
+        for _ in range(10):
             path = rollout(env, policy,
                            max_path_length=args.max_path_length,
-                           animated=True, speedup=args.speedup)
+                           animated=True, speedup=args.speedup,
+                           always_return_paths=True)
+            # print(np.sum(path["rewards"]))
+            mean_reward.append(np.sum(path["rewards"]))
+        print(np.mean(mean_reward), np.std(mean_reward))
+
+
 if __name__ == "__main__":
     args = parse_args()
     simulate_policy(args)
