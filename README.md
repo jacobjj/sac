@@ -1,5 +1,4 @@
-**This repository is no longer maintained. Please use our new [Softlearning](https://github.com/rail-berkeley/softlearning) package instead.**
-
+** This repository is branched from [sac](https://github.com/haarnoja/sac) with modifications to be used with Mujoco1.5**
 # Soft Actor-Critic
 
 Soft actor-critic is a deep reinforcement learning framework for training maximum entropy policies in continuous domains. The algorithm is based on the paper [Soft Actor-Critic: Off-Policy Maximum Entropy Deep Reinforcement Learning with a Stochastic Actor](https://arxiv.org/abs/1801.01290) presented at ICML 2018.
