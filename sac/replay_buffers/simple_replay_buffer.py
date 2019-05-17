@@ -16,13 +16,13 @@ class SimpleReplayBuffer(ReplayBuffer, Serializable):
         self._observation_dim = env_spec.observation_space.flat_dim
         self._action_dim = env_spec.action_space.flat_dim
         self._max_buffer_size = max_replay_buffer_size
-        self._observations = np.zeros((max_replay_buffer_size,
-                                       self._observation_dim))
+        self._observations = np.zeros(
+            (max_replay_buffer_size, self._observation_dim))
         # It's a bit memory inefficient to save the observations twice,
         # but it makes the code *much* easier since you no longer have to
         # worry about termination conditions.
-        self._next_obs = np.zeros((max_replay_buffer_size,
-                                   self._observation_dim))
+        self._next_obs = np.zeros(
+            (max_replay_buffer_size, self._observation_dim))
         self._actions = np.zeros((max_replay_buffer_size, self._action_dim))
         self._rewards = np.zeros(max_replay_buffer_size)
         # self._terminals[i] = a terminal was received at time i
@@ -64,26 +64,26 @@ class SimpleReplayBuffer(ReplayBuffer, Serializable):
 
     def __getstate__(self):
         d = super(SimpleReplayBuffer, self).__getstate__()
-        d.update(dict(
-            o=self._observations.tobytes(),
-            a=self._actions.tobytes(),
-            r=self._rewards.tobytes(),
-            t=self._terminals.tobytes(),
-            no=self._next_obs.tobytes(),
-            top=self._top,
-            size=self._size,
-        ))
+        d.update(
+            dict(
+                o=self._observations.tobytes(),
+                a=self._actions.tobytes(),
+                r=self._rewards.tobytes(),
+                t=self._terminals.tobytes(),
+                no=self._next_obs.tobytes(),
+                top=self._top,
+                size=self._size,
+            ))
         return d
 
     def __setstate__(self, d):
         super(SimpleReplayBuffer, self).__setstate__(d)
         self._observations = np.fromstring(d['o']).reshape(
-            self._max_buffer_size, -1
-        )
+            self._max_buffer_size, -1)
         self._next_obs = np.fromstring(d['no']).reshape(
-            self._max_buffer_size, -1
-        )
-        self._actions = np.fromstring(d['a']).reshape(self._max_buffer_size, -1)
+            self._max_buffer_size, -1)
+        self._actions = np.fromstring(d['a']).reshape(self._max_buffer_size,
+                                                      -1)
         self._rewards = np.fromstring(d['r']).reshape(self._max_buffer_size)
         self._terminals = np.fromstring(d['t'], dtype=np.uint8)
         self._top = d['top']

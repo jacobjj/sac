@@ -6,14 +6,19 @@ import tensorflow as tf
 
 from rllab.sampler.utils import rollout
 
+
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('file', type=str, help='Path to the snapshot file.')
     parser.add_argument('--max-path-length', '-l', type=int, default=1000)
     parser.add_argument('--speedup', '-s', type=float, default=1)
-    parser.add_argument('--deterministic', '-d', dest='deterministic',
+    parser.add_argument('--deterministic',
+                        '-d',
+                        dest='deterministic',
                         action='store_true')
-    parser.add_argument('--no-deterministic', '-nd', dest='deterministic',
+    parser.add_argument('--no-deterministic',
+                        '-nd',
+                        dest='deterministic',
                         action='store_false')
     parser.add_argument('--policy_h', type=int)
     parser.set_defaults(deterministic=True)
@@ -21,6 +26,7 @@ def parse_args():
     args = parser.parse_args()
 
     return args
+
 
 def simulate_policy(args):
     with tf.Session() as sess:
@@ -36,13 +42,16 @@ def simulate_policy(args):
         mean_reward = []
         # while True:
         for _ in range(10):
-            path = rollout(env, policy,
+            path = rollout(env,
+                           policy,
                            max_path_length=args.max_path_length,
-                           animated=True, speedup=args.speedup,
+                           animated=True,
+                           speedup=args.speedup,
                            always_return_paths=True)
-            # print(np.sum(path["rewards"]))
+
             mean_reward.append(np.sum(path["rewards"]))
-        print(np.mean(mean_reward), np.std(mean_reward))
+        print("Average Return {}+/-{}".format(np.mean(mean_reward),
+                                              np.std(mean_reward)))
 
 
 if __name__ == "__main__":
